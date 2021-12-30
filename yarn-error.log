@@ -1,5 +1,5 @@
 Arguments: 
-  /snap/node/5638/bin/node /snap/node/5638/bin/yarn.js add @typesmulter
+  /snap/node/5638/bin/node /snap/node/5638/bin/yarn.js add typeorm reflect-metada
 
 PATH: 
   /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/snap/bin
@@ -14,8 +14,8 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/@typesmulter: Request "https://registry.yarnpkg.com/@typesmulter" returned a 405
-      at Request.params.callback [as _callback] (/snap/node/5638/lib/cli.js:67040:18)
+  Error: https://registry.yarnpkg.com/reflect-metada: Not found
+      at Request.params.callback [as _callback] (/snap/node/5638/lib/cli.js:67031:18)
       at Request.self.callback (/snap/node/5638/lib/cli.js:140885:22)
       at Request.emit (events.js:400:28)
       at Request.<anonymous> (/snap/node/5638/lib/cli.js:141857:10)
@@ -40,6 +40,7 @@ npm manifest:
     },
     "devDependencies": {
       "@types/node": "^16.11.11",
+      "@types/swagger-ui-express": "^4.1.3",
       "@typescript-eslint/eslint-plugin": "^5.5.0",
       "@typescript-eslint/parser": "^5.5.0",
       "eslint": "^8.3.0",
@@ -52,9 +53,12 @@ npm manifest:
     },
     "dependencies": {
       "@types/express": "^4.17.13",
+      "@types/multer": "^1.4.7",
       "@types/uuid": "^8.3.3",
+      "csv-parse": "^5.0.3",
       "express": "^4.17.1",
       "multer": "^1.4.4",
+      "swagger-ui-express": "^4.3.0",
       "typescript-eslint": "^0.0.1-alpha.0",
       "uuid": "^8.3.2"
     }
@@ -142,7 +146,7 @@ Lockfile:
       "@types/qs" "*"
       "@types/range-parser" "*"
   
-  "@types/express@^4.17.13":
+  "@types/express@*", "@types/express@^4.17.13":
     version "4.17.13"
     resolved "https://registry.yarnpkg.com/@types/express/-/express-4.17.13.tgz#a76e2995728999bab51a33fabce1d705a3709034"
     integrity sha512-6bSZTPaTIACxn48l50SR+axgrqm6qXFIxrdAKaG6PaJk3+zuUr35hBlgT7vOmJcum+OEaIBLtHV/qloEAFITeA==
@@ -166,6 +170,13 @@ Lockfile:
     version "1.3.2"
     resolved "https://registry.yarnpkg.com/@types/mime/-/mime-1.3.2.tgz#93e25bf9ee75fe0fd80b594bc4feb0e862111b5a"
     integrity sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==
+  
+  "@types/multer@^1.4.7":
+    version "1.4.7"
+    resolved "https://registry.yarnpkg.com/@types/multer/-/multer-1.4.7.tgz#89cf03547c28c7bbcc726f029e2a76a7232cc79e"
+    integrity sha512-/SNsDidUFCvqqcWDwxv2feww/yqhNeTRL5CVoL3jU4Goc4kKEL10T7Eye65ZqPNi4HRx8sAEX59pV1aEH7drNA==
+    dependencies:
+      "@types/express" "*"
   
   "@types/node@*", "@types/node@^16.11.11":
     version "16.11.11"
@@ -199,6 +210,14 @@ Lockfile:
     version "0.0.30"
     resolved "https://registry.yarnpkg.com/@types/strip-json-comments/-/strip-json-comments-0.0.30.tgz#9aa30c04db212a9a0649d6ae6fd50accc40748a1"
     integrity sha512-7NQmHra/JILCd1QqpSzl8+mJRc8ZHz3uDm8YV1Ks9IhK0epEiTw8aIErbvH9PI+6XbqhyIQy3462nEsn7UVzjQ==
+  
+  "@types/swagger-ui-express@^4.1.3":
+    version "4.1.3"
+    resolved "https://registry.yarnpkg.com/@types/swagger-ui-express/-/swagger-ui-express-4.1.3.tgz#7adbbbf5343b45869debef1e9ff39c9ba73e380f"
+    integrity sha512-jqCjGU/tGEaqIplPy3WyQg+Nrp6y80DCFnDEAvVKWkJyv0VivSSDCChkppHRHAablvInZe6pijDFMnavtN0vqA==
+    dependencies:
+      "@types/express" "*"
+      "@types/serve-static" "*"
   
   "@types/uuid@^8.3.3":
     version "8.3.3"
@@ -507,6 +526,11 @@ Lockfile:
       path-key "^3.1.0"
       shebang-command "^2.0.0"
       which "^2.0.1"
+  
+  csv-parse@^5.0.3:
+    version "5.0.3"
+    resolved "https://registry.yarnpkg.com/csv-parse/-/csv-parse-5.0.3.tgz#eeb0b1ac8bf2970f703176c8f54d313325b6d2e8"
+    integrity sha512-86R0WU4aEEF/1fPZKxP3NmDAYC4Ce1t9iFgKPZogG5Lvk4m9WZQkCEsDANktG29jppejwclTtEOzubN2ieCJqw==
   
   debug@2.6.9:
     version "2.6.9"
@@ -1564,6 +1588,18 @@ Lockfile:
     integrity sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw==
     dependencies:
       has-flag "^4.0.0"
+  
+  swagger-ui-dist@>=4.1.3:
+    version "4.1.3"
+    resolved "https://registry.yarnpkg.com/swagger-ui-dist/-/swagger-ui-dist-4.1.3.tgz#2be9f9de9b5c19132fa4a5e40933058c151563dc"
+    integrity sha512-WvfPSfAAMlE/sKS6YkW47nX/hA7StmhYnAHc6wWCXNL0oclwLj6UXv0hQCkLnDgvebi0MEV40SJJpVjKUgH1IQ==
+  
+  swagger-ui-express@^4.3.0:
+    version "4.3.0"
+    resolved "https://registry.yarnpkg.com/swagger-ui-express/-/swagger-ui-express-4.3.0.tgz#226238ab231f7718f9109d63a66efc3a795618dd"
+    integrity sha512-jN46SEEe9EoXa3ZgZoKgnSF6z0w3tnM1yqhO4Y+Q4iZVc8JOQB960EZpIAz6rNROrDApVDwcMHR0mhlnc/5Omw==
+    dependencies:
+      swagger-ui-dist ">=4.1.3"
   
   text-table@^0.2.0:
     version "0.2.0"
