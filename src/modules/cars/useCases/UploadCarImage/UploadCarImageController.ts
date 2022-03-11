@@ -2,15 +2,14 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 import { UploadCarImageUseCase } from './UploadCarImageUseCase';
 
-interface IFile {
+interface IFiles {
   fileName: string;
 }
 
 class UploadCarImageController {
   async handle(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
-
-    const images = request.files as IFile[];
+    const images = request.files as unknown as IFiles[];
 
     const uploadCarImagesUseCase = container.resolve(UploadCarImageUseCase);
 
@@ -20,7 +19,6 @@ class UploadCarImageController {
       car_id: id,
       images_name,
     });
-
     return response.status(201).send();
   }
 }

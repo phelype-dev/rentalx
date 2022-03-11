@@ -1,5 +1,5 @@
-import { inject, injectable } from 'tsyringe';
 import { IcarImagesRepository } from '@modules/cars/repositories/IcarImagesRepository';
+import { inject, injectable } from 'tsyringe';
 
 interface IRequest {
   car_id: string;
@@ -9,11 +9,11 @@ interface IRequest {
 @injectable()
 class UploadCarImageUseCase {
   constructor(
-    @inject('CarsImageRepository')
+    @inject('CarsImagesRepository')
     private carsImagesRepository: IcarImagesRepository,
   ) {}
 
-  async execute({ car_id, images_name }: IRequest) {
+  async execute({ car_id, images_name }: IRequest): Promise<void> {
     images_name.map(async image => {
       await this.carsImagesRepository.create(car_id, image);
     });
