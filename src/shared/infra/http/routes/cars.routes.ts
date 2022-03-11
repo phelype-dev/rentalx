@@ -1,7 +1,7 @@
 import { CreateCarController } from '@modules/cars/useCases/createCars/CreateCarController';
 import { CreateCarSpecificationController } from '@modules/cars/useCases/createCarSpecification/createCarSpecificationController';
 import { ListAvailableCarController } from '@modules/cars/useCases/listAvailableCar/ListAvailableCarContoller';
-import { UploadCarImageController } from '@modules/cars/useCases/UploadCarImage/UploadCarImageController';
+import { UploadCarImagesController } from '@modules/cars/useCases/UploadCarImage/UploadCarImagesController';
 import { Router } from 'express';
 import multer from 'multer';
 import { ensureAdmin } from '../middlewares/ensureAdmin';
@@ -13,7 +13,7 @@ const carsRoutes = Router();
 const createCarController = new CreateCarController();
 const listAvailableCarControllers = new ListAvailableCarController();
 const createCarSpecificationController = new CreateCarSpecificationController();
-const uploadCarsImageController = new UploadCarImageController();
+const uploadCarsImageController = new UploadCarImagesController();
 
 const upload = multer(uploadConfig.upload('./tmp/cars'));
 
