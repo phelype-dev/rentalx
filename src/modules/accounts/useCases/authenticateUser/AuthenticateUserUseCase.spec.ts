@@ -14,7 +14,9 @@ describe('Authenticate User', () => {
     authenticateUserUseCase = new AuthenticateUseUseCase(
       usersRepositoryInMemory,
     );
-    createUserUseCase = new CreateUserUseCase(usersRepositoryInMemory);
+    createUserUseCase = new CreateUserUseCase(
+      usersRepositoryInMemory,
+    );
   });
   it('Should be able to authenticate an user', async () => {
     const user: ICreateUserDTO = {
@@ -33,7 +35,7 @@ describe('Authenticate User', () => {
     expect(result).toHaveProperty('token');
   });
 
-  it('should not be able toauthenticate an no exists user', () => {
+  it('should not be able to authenticate an no exists user', () => {
     expect(async () => {
       await authenticateUserUseCase.execute({
         email: 'otheremail@exemple.com',
