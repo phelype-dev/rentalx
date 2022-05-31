@@ -1,6 +1,8 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm';
 
-export class CreateRentals1649250606268 implements MigrationInterface {
+export class CreateRentals1649250606268
+  implements MigrationInterface
+{
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
@@ -23,6 +25,7 @@ export class CreateRentals1649250606268 implements MigrationInterface {
           {
             name: 'end_date',
             type: 'timestamp',
+            isNullable: true,
           },
           {
             name: 'expected_return_date',
@@ -31,6 +34,7 @@ export class CreateRentals1649250606268 implements MigrationInterface {
           {
             name: 'total',
             type: 'numeric',
+            isNullable: true,
           },
           {
             name: 'created_at',

@@ -12,7 +12,8 @@ const carsRoutes = Router();
 
 const createCarController = new CreateCarController();
 const listAvailableCarControllers = new ListAvailableCarController();
-const createCarSpecificationController = new CreateCarSpecificationController();
+const createCarSpecificationController =
+  new CreateCarSpecificationController();
 const uploadCarsImageController = new UploadCarImagesController();
 
 const upload = multer(uploadConfig.upload('./tmp/cars'));
