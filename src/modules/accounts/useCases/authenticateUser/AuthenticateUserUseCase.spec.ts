@@ -50,7 +50,7 @@ describe('Authenticate User', () => {
         driver_license: '01010101',
         email: 'test@example.com',
         password: 'test',
-        name: 'test',
+        name: 'weedaasd',
       };
       await createUserUseCase.execute(user);
 
