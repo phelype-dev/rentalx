@@ -53,7 +53,9 @@ class CarsRepository implements ICarRepository {
       carQuery.andWhere('c.brand = :brand', { brand });
     }
     if (category_id) {
-      carQuery.andWhere('c.category_id = :category_id', { category_id });
+      carQuery.andWhere('c.category_id = :category_id', {
+        category_id,
+      });
     }
     if (name) {
       carQuery.andWhere('c.name = :name', { name });
@@ -66,6 +68,19 @@ class CarsRepository implements ICarRepository {
   async findById(id: string): Promise<Cars> {
     const car = await this.repository.findOne(id);
     return car;
+  }
+
+  async updateAvailable(
+    id: string,
+    available: boolean,
+  ): Promise<void> {
+    await this.repository
+      .createQueryBuilder()
+      .update()
+      .set({ available })
+      .where('id = :id')
+      .setParameters({ id })
+      .execute();
   }
 }
 

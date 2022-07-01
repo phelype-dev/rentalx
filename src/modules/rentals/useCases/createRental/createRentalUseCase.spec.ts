@@ -1,3 +1,5 @@
+import { CarsImagesRepository } from '@modules/cars/infra/typeorm/repositories/CarsImagesRepository';
+import { CarRepositoryInMemory } from '@modules/cars/repositories/in-memory/CarRepositoryInMemory';
 import { RentalsRepositoryInMemory } from '@modules/rentals/repositories/In-memory/RentalsRepositoryInMemory';
 import { DayJsDateProvider } from '@shared/container/providers/DateProvider/implementations/DayJsDateProvider';
 import { AppError } from '@shared/errors/AppError';
@@ -6,6 +8,7 @@ import { CreateRentalUseCase } from './createRentalUseCase';
 
 let createRentalUseCase: CreateRentalUseCase;
 let rentalsRepositoryInMemory: RentalsRepositoryInMemory;
+let carsRepositoryInMemory: CarRepositoryInMemory;
 let dayJsDateProvider: DayJsDateProvider;
 
 describe('Create Rental', () => {
@@ -13,10 +16,12 @@ describe('Create Rental', () => {
 
   beforeEach(() => {
     rentalsRepositoryInMemory = new RentalsRepositoryInMemory();
+    carsRepositoryInMemory = new CarRepositoryInMemory();
     dayJsDateProvider = new DayJsDateProvider();
     createRentalUseCase = new CreateRentalUseCase(
       rentalsRepositoryInMemory,
       dayJsDateProvider,
+      carsRepositoryInMemory,
     );
   });
 
@@ -26,8 +31,6 @@ describe('Create Rental', () => {
       car_id: '090908',
       expected_return_date: day24Hours,
     });
-
-    console.log(rental);
 
     expect(rental).toHaveProperty('id');
     expect(rental).toHaveProperty('start_date');

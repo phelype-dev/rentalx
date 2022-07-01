@@ -32,7 +32,9 @@ class CarRepositoryInMemory implements ICarRepository {
   }
 
   async findByLicensePlate(license_plate: string): Promise<Cars> {
-    return this.cars.find(cars => cars.license_plate === license_plate);
+    return this.cars.find(
+      cars => cars.license_plate === license_plate,
+    );
   }
 
   async findAvailable(
@@ -56,6 +58,14 @@ class CarRepositoryInMemory implements ICarRepository {
 
   async findById(id: string): Promise<Cars> {
     return await this.cars.find(cars => cars.id === id);
+  }
+
+  async updateAvailable(
+    id: string,
+    available: boolean,
+  ): Promise<void> {
+    const findIndex = this.cars.findIndex(cars => cars.id === id);
+    this.cars[findIndex].available = available;
   }
 }
 
